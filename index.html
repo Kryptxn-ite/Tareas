@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario en PHP</title>
+</head>
+<body>
+
+<?php
+// Inicializar las variables
+$nombre = $email = "";
+
+// Procesar el formulario cuando se envía
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = test_input($_POST["nombre"]);
+    $email = test_input($_POST["email"]);
+
+    // Aquí puedes realizar cualquier validación o procesamiento adicional de los datos
+}
+
+// Función para limpiar los datos de entrada
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+?>
+
+<h2>Formulario en PHP</h2>
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+    Nombre: <input type="text" name="nombre">
+    <br><br>
+    Correo electrónico: <input type="text" name="email">
+    <br><br>
+    <input type="submit" name="submit" value="Enviar">
+</form>
+
+<h2>Datos enviados:</h2>
+<p>Nombre: <?php echo $nombre; ?></p>
+<p>Correo electrónico: <?php echo $email; ?></p>
+
+</body>
+</html>
